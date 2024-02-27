@@ -1,12 +1,17 @@
-void main() {
+void main() async {
   // non async-await
-  fetchPost().then((post) {
-    print(post.title);
-    print(post.userId);
-  });
+  // fetchPost().then((post) {
+  //   print(post.title);
+  //   print(post.userId);
+  // });
+
+  // if there is await here, then the main function needs to have async
+  final post = await fetchPost();
+  print(post.title);
+  print(post.userId);
 }
 
-Future fetchPost() {
+Future<Post> fetchPost() {
   const delay = Duration(seconds: 1);
 
   return Future.delayed(delay, () {
