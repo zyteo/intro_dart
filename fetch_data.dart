@@ -1,24 +1,21 @@
 import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
 void main() async {
-  // non async-await
-  // fetchPost().then((post) {
-  //   print(post.title);
-  //   print(post.userId);
-  // });
-
   // if there is await here, then the main function needs to have async
   final post = await fetchPost();
   print(post.title);
   print(post.userId);
 }
 
-Future<Post> fetchPost() {
-  const delay = Duration(seconds: 1);
+Future<Post> fetchPost() async {
+  var uri =
+      Uri.https('jsonplaceholder.typicode.com', '/posts/1', {'q': '{http}'});
+  final response = await http.get(uri);
 
-  return Future.delayed(delay, () {
-    return Post('my post', 234);
-  });
+  Map<String, dynamic> data = convert.jsonDecode(response.body);
+
+  return Post(data['title'], data['userId']);
 }
 
 class Post {
