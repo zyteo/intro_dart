@@ -1,0 +1,6 @@
+name: intro_dart
+
+environment:
+  sdk: '^3.3.0'
+dependencies:
+  http: ^1.2.1
